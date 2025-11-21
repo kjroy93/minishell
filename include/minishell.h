@@ -6,7 +6,7 @@
 /*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 09:56:36 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/11/21 14:46:31 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/11/21 15:38:13 by kjroydev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ typedef struct s_ifsm
 
 typedef struct s_fsm
 {
-	t_state			current;
-	t_state			prev;
+	t_state			current_state;
+	t_state			prev_state;
 	char			input;
 	char			*line;
-	int				buf_i;
+	int				line_i;
 	struct s_ifsm	*internal;
 }	t_fsm;
 
