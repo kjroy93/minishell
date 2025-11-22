@@ -12,6 +12,7 @@ INCLUDE_DIR		= include
 
 LIBFT_INCLUDE	= $(LIBFT_DIR)/include
 PIPES_INCLUDE	= $(PIPES_DIR)/include
+LDFLAGS = -lreadline
 
 SRC		=
 OBJ		= $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRC))

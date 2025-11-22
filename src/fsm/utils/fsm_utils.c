@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   state_start.c                                      :+:      :+:    :+:   */
+/*   fsm_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/21 12:34:46 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/11/22 14:50:05 by kjroydev         ###   ########.fr       */
+/*   Created: 2025/11/22 14:42:04 by kjroydev          #+#    #+#             */
+/*   Updated: 2025/11/22 17:20:56 by kjroydev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	state_start(t_fsm *fsm, char c)
+void	end_word(t_fsm *fsm)
 {
-	if (c == ' ' || c == '\t')
-		return ;
-	else if (c == '|')
-		fsm->current_state = STATE_PIPE;
-	else
-	{
-		fsm->line[fsm->line_i++] = c;
-		fsm->current_state = STATE_WORD;
-	}
+	fsm->token[fsm->i_token] = '\0';
+	fsm->i_token = 0;
 }
