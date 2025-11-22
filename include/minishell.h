@@ -6,7 +6,7 @@
 /*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 09:56:36 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/11/21 15:38:13 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/11/22 15:18:27 by kjroydev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ typedef enum e_state
 {
 	STATE_START,
 	STATE_WORD,
-	STATE_IN_SINGLE_QUOTES,
-	STATE_IN_DOUBLE_QUOTES,
+	STATE_SQUOTE,
+	STATE_DQUOTE,
 	STATE_PIPE,
 	STATE_REDIRECT_IN,
 	STATE_REDIRECT_OUT,
+	STATE_APPEND,
+	STATE_HEREDOC,
 	STATE_END,
 	STATE_ERROR,
 }	t_state;
@@ -51,5 +53,7 @@ typedef struct s_token
 	int				type;
 	struct s_token	*next;
 }	t_token;
+
+void	end_word(t_fsm *fsm);
 
 #endif
