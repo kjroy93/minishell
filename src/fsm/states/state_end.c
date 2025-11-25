@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   state_start.c                                      :+:      :+:    :+:   */
+/*   state_end.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/21 12:34:46 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/11/25 22:42:39 by kjroydev         ###   ########.fr       */
+/*   Created: 2025/11/25 13:15:30 by kjroydev          #+#    #+#             */
+/*   Updated: 2025/11/25 17:46:39 by kjroydev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	state_start(t_fsm *fsm, char c, t_token **tokens)
+void	state_end(t_fsm *fsm, char c)
 {
-	if (c == ' ' || c == '\t')
-		return ;
-	else if (c == '|')
+	if (c == '\0' || c == '\n')
 	{
-		fsm->current_state = STATE_PIPE;
-		return ;
-	}
-	else if(c == '>' || c == '<')
-	{
-		fsm->current_state = STATE_REDIRECT;
-		return ;
-	}
-	else
-	{
-		token_append_char(fsm, c);
-		fsm->current_state = STATE_WORD;
+		if (fsm->i_token > 0)
+			end_word(fsm);
+		fsm->current_state = STATE_END;
+		reset_fsm(fsm);
 	}
 }
