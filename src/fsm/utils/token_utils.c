@@ -6,40 +6,42 @@
 /*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 18:21:23 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/11/25 23:37:19 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/12/10 20:07:29 by kjroydev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*init_token(char *element, t_fsm *fsm)
+t_token *init_token(t_fsm *fsm, int quoted)
 {
-	t_token	*token;
+    t_token *token;
 
-	token = malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
-	token->next = NULL;
-	token->value = NULL;
-	token->type = fsm->current_state; //check
-	if (element)
-	{
-		token->value = ft_strdup(element);
-		if (!token->value)
-		{
-			free(token);
-			token = NULL;
-			return (NULL);
-		}
-	}
-	return (token);
+    token = malloc(sizeof(t_token));
+    if (!token)
+        return NULL;
+    token->next = NULL;
+    token->type = fsm->current_state;
+    token->quote = quoted;
+    if (fsm->token[0] != '\0')
+    {
+        token->content = ft_strdup(fsm->token);
+        if (!token->content)
+        {
+            free(token);
+            return NULL;
+        }
+    }
+    else
+        token->content = NULL;
+    return (token);
 }
 
-t_token	token_add_back(t_token **tokens, t_token *new)
+
+void	token_add_back(t_token **tokens, t_token *new)
 {
 	t_token	*temp;
 
-	if (!tokens || new)
+	if (!tokens || !new)
 		return ;
 	if (*tokens == NULL)
 	{

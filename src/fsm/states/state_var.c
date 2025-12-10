@@ -1,21 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   state_error.c                                      :+:      :+:    :+:   */
+/*   state_var.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/22 15:17:32 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/12/10 18:55:54 by kjroydev         ###   ########.fr       */
+/*   Created: 2025/12/10 19:00:57 by kjroydev          #+#    #+#             */
+/*   Updated: 2025/12/10 19:01:07 by kjroydev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-bool	state_error(t_fsm *fsm, char *msg)
-{
-	ft_putstr_fd(msg, 2);
-	fsm->current_state = STATE_ERROR;
-	// reset_fsm(fsm);
-	return (false);
-}

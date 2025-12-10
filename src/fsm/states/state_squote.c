@@ -6,7 +6,7 @@
 /*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 11:51:04 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/11/25 23:27:06 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/12/10 21:18:10 by kjroydev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	error_handler(t_fsm *fsm)
 		state_error(fsm, "unexpected EOF while looking for quote '");
 		return ;
 	}
-	len = ft_srlen(fsm->input) + ft_strlen(extra) + 2;
+	len = ft_strlen(fsm->input) + ft_strlen(extra) + 2;
 	new_input = malloc(len);
 	if (!new_input)
 	{
@@ -34,22 +34,34 @@ static void	error_handler(t_fsm *fsm)
 	}
 	ft_strlcpy(new_input, fsm->input, len);
 	ft_strlcat(new_input, extra, len);
-	ft_strlecat(new_input, "\n", len);
+	ft_strlcat(new_input, "\n", len);
 	free(fsm->input);
 	free(extra);
 	fsm->input = new_input;
 	fsm->i_input = 0;
 }
 
-void	state_squote(t_fsm *fsm, char c, t_token **tokens)
+bool	state_squote(t_fsm *fsm, char c, t_token **tokens)
 {
 	if (c == '\'')
 	{
-		fsm->current_state = STATE_WORD;
-		end_word(fsm, tokens);
+		fsm->counter++;
+		if (fsm->counter == 2)
+		{
+			fsm->current_state = STATE_WORD;
+			create_token(fsm, tokens, 1);
+			fsm->counter = 0;
+		}
+		return (true);
 	}
 	else if (c == '\0')
+	{
 		error_handler(fsm);
+		return (false);
+	}
 	else
+	{
 		token_append_char(fsm, c);
+		return (true);
+	}
 }

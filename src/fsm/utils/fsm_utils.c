@@ -6,7 +6,7 @@
 /*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 14:42:04 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/11/25 22:52:22 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/12/10 18:43:12 by kjroydev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,19 @@ t_fsm	*init_fsm(char *input)
 	return (fsm);
 }
 
-void	reset_fsm(t_fsm *fsm)
-{
-	
-}
+// void	reset_fsm(t_fsm *fsm)
+// {
+//	
+// }
 
-void	end_word(t_fsm *fsm, t_token **tokens)
+void	create_token(t_fsm *fsm, t_token **tokens, int quoted)
 {
 	t_token	*new;
 	
 	if (fsm->i_token == 0)
 		return ;
 	fsm->token[fsm->i_token] = '\0';
-	new = init_token(fsm->token);
+	new = init_token(fsm, quoted);
 	if (!new)
 	{
 		new = NULL;

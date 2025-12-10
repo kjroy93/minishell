@@ -14,7 +14,18 @@ LIBFT_INCLUDE	= $(LIBFT_DIR)/include
 PIPES_INCLUDE	= $(PIPES_DIR)/include
 LDFLAGS = -lreadline
 
-SRC		=
+SRC		= src/fsm/states/state_dquote.c	\
+		src/fsm/states/state_end.c		\
+		src/fsm/states/state_error.c	\
+		src/fsm/states/state_pipe.c		\
+		src/fsm/states/state_redirect.c	\
+		src/fsm/states/state_squote.c	\
+		src/fsm/states/state_start.c	\
+		src/fsm/states/state_word.c 	\
+		src/fsm/utils/fsm_utils.c		\
+		src/fsm/utils/token_utils.c		\
+		src/fsm/fsm.c					\
+		main.c							
 OBJ		= $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRC))
 
 CC		= cc
@@ -39,7 +50,7 @@ $(PIPES):
 
 $(NAME): $(OBJ)
 	@echo "🔧 Building minishell..."
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) 
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) $(LDFLAGS)
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
