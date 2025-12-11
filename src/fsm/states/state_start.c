@@ -6,7 +6,7 @@
 /*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 12:34:46 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/12/10 16:11:13 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/12/11 17:49:20 by kjroydev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ bool	state_start(t_fsm *fsm, char c, t_token **tokens)
 	new_state = next_state_from_start(c);
 	if (new_state == STATE_START)
 	{
+		fsm->prev_state = fsm->current_state;
 		fsm->current_state = STATE_START;
 		return (true);
 	}

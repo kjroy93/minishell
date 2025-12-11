@@ -6,7 +6,7 @@
 /*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 18:21:23 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/12/10 20:07:29 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/12/11 19:26:32 by kjroydev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ t_token *init_token(t_fsm *fsm, int quoted)
         token->content = NULL;
     return (token);
 }
-
 
 void	token_add_back(t_token **tokens, t_token *new)
 {
@@ -72,4 +71,19 @@ void	token_append_str(t_fsm *fsm, const char *str)
 void	token_append_char(t_fsm *fsm, const char c)
 {
 	fsm->token[fsm->i_token++] = c;
+}
+
+void	free_tokens(t_token **tokens)
+{
+	t_token	*tmp;
+
+	if (!tokens || !*tokens)
+		return ;
+	while ((*tokens))
+	{
+		tmp = (*tokens)->next;
+		free((*tokens)->content);
+		free(*tokens);
+		*tokens = tmp;
+	}
 }

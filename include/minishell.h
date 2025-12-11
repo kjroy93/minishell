@@ -6,7 +6,7 @@
 /*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 09:56:36 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/12/10 20:20:06 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/12/11 21:06:09 by kjroydev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,55 @@ typedef enum e_state
 	STATE_SQUOTE,
 	STATE_DQUOTE,
 	STATE_PIPE,
-	STATE_END,
 	STATE_REDIRECT,
 	STATE_ERROR,
+	STATE_END,
 }	t_state;
 
+/**
+ * @struct s_fsm
+ * @brief Final State Machine that controls the input offered by the user.
+ * This analyze the string given of the shell and convert them into tokens,
+ * that will be interpreted by the lexer. 
+ * 
+ * Composition:
+ * 
+ * - current_state = the state of the FSM at the moment in actual character.
+ * 
+ * - prev_state = previous state of FSM to control quotes and special status.
+ * 
+ * - i_token = inner index of the token (buffer control)
+ * 
+ * - i_input = inner inxed of the input (buffer control)
+ * 
+ * - counter = number that represent another value of interest in the FSM.
+ * 
+ * - input = user entry allocated with readline function
+ * 
+ * - token = constructed buffer to save the user input. The token is created
+ * from it's content.
+ */
 typedef struct s_fsm
 {
-	t_state			current_state;
-	t_state			prev_state;
-	size_t			i_token;
-	size_t			i_input;
-	size_t			counter;
-	char			*input;
-	char			token[256];
+	t_state			current_state; /**< Current state of FSM. */
+	t_state			prev_state; /**< Previous state of FSM. */
+	size_t			i_token; /**< Inner index of buffer. */
+	size_t			i_input; /**< Inner state of user input. */
+	size_t			counter; /**< Aux counter of the FSM. */
+	bool			has_error;
+	char			*input; /**< User input (readline). */
+	char			token[256]; /**< Buffer to construct tokens. */
 }	t_fsm;
-
 
 /**
  * @struct s_token
- * @brief Represents the tokens and inner composition for grammatical analysis.
+ * @brief Represents the tokens and inner composition for analysis.
  * 
  * Each token can point to the next, contain a text value,
  * a token type (word, pipe, redirection, etc.) and a type of quote.
  * 
  * Composition:
+ * 
  * - next = pointer to the next token.
  * 
  * - content = it contains the token string.
@@ -63,10 +87,10 @@ typedef struct s_fsm
  */
 typedef struct s_token
 {
-	char			*content;
-	int				type;
-	int				quote;
-	struct s_token	*next;
+	char			*content; /**< Token to be interpreted. */
+	int				type; /**< Type of the content (determined by enum). */
+	int				quote; /**< Quote type. */
+	struct s_token	*next; /**< Next token. */
 }	t_token;
 
 void	entry_point(char *input, t_token **tokens);
@@ -79,14 +103,17 @@ bool	state_dquote(t_fsm *fsm, char c, t_token **tokens);
 bool	state_pipe(t_fsm *fsm, char c, t_token **tokens);
 bool	state_end(t_fsm *fsm, char c, t_token **tokens);
 bool	state_redirect(t_fsm *fsm, char c, t_token **tokens);
-bool	state_var(t_fsm *fsm, char c, t_token **tokens);
-bool	state_error(t_fsm *fsm, char *msg);
+bool	state_error(t_fsm *fsm, char c, t_token **tokens);
+void	error_handler(t_fsm *fsm, const char *line);
+void	default_state(t_fsm *fsm);
 void	create_token(t_fsm *fsm, t_token **tokens, int quoted);
 void	reset_fsm(t_fsm *fsm);
+void	destroy_fsm(t_fsm **fsm);
 
 t_token	*init_token(t_fsm *fsm, int quoted);
 void	token_append_str(t_fsm *fsm, const char *str);
 void	token_append_char(t_fsm *fsm, const char c);
 void	token_add_back(t_token **tokens, t_token *new);
+void	free_tokens(t_token **tokens);
 
 #endif

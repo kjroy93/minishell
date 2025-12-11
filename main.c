@@ -6,7 +6,7 @@
 /*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 18:13:39 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/12/10 21:41:12 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/12/11 14:53:56 by kjroydev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int main(void)
 {
 	char    *input;
 	t_token *tokens;
-	int	i;
+	int		i;
 
 	tokens = NULL;
 	while (true)
@@ -36,5 +36,5 @@ int main(void)
 		i++;
 	}
 	printf("exit\n");
-	return 0;
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 13:01:07 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/12/10 17:48:06 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/12/11 18:59:42 by kjroydev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool state_redirect(t_fsm *fsm, char c, t_token **tokens)
     else
     {
         fsm->current_state = STATE_ERROR;
-        state_error(fsm, "Syntax error near unexpected token");
+        state_error(fsm, c, NULL);
         return (false);
     }
     create_token(fsm, tokens, 0);

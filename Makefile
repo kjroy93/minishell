@@ -22,6 +22,7 @@ SRC		= src/fsm/states/state_dquote.c	\
 		src/fsm/states/state_squote.c	\
 		src/fsm/states/state_start.c	\
 		src/fsm/states/state_word.c 	\
+		src/fsm/utils/error_handler.c	\
 		src/fsm/utils/fsm_utils.c		\
 		src/fsm/utils/token_utils.c		\
 		src/fsm/fsm.c					\
