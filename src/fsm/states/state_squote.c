@@ -6,7 +6,7 @@
 /*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 11:51:04 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/12/11 21:27:39 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/12/12 18:25:59 by kjroydev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool	state_squote(t_fsm *fsm, char c, t_token **tokens)
 	}
 	else
 	{
-		token_append_char(fsm, c);
+		token_append_char(fsm, c, tokens);
 		return (true);
 	}
 }

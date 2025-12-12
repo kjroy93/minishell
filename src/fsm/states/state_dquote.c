@@ -6,7 +6,7 @@
 /*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 15:23:45 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/12/11 21:27:33 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/12/12 18:25:54 by kjroydev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ bool	state_dquote(t_fsm *fsm, char c, t_token **tokens)
 	}
 	else if (c == '\0')
 	{
-		error_handler(fsm, "quote> ");
+		error_handler(fsm, "dquote> ");
 		free_tokens(tokens);
 		default_state(fsm);
 		return (false);
 	}
 	else
 	{
-		token_append_char(fsm, c);
+		token_append_char(fsm, c, tokens);
 		return (true);
 	}
 }

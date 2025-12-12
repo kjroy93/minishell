@@ -6,7 +6,7 @@
 /*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 13:01:07 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/12/11 18:59:42 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/12/12 18:24:32 by kjroydev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ bool state_redirect(t_fsm *fsm, char c, t_token **tokens)
 
 	next = fsm->input[fsm->i_input + 1];
     if (c == '>' && next == '>')
-        token_append_str(fsm, ">>");
+        token_append_str(fsm, ">>", tokens);
     else if (c == '>')
-        token_append_char(fsm, c);
+        token_append_char(fsm, c, tokens);
     else if (c == '<' && next == '<')
-        token_append_str(fsm, "<<");
+        token_append_str(fsm, "<<", tokens);
     else if (c == '<')
-        token_append_char(fsm, c);
+        token_append_char(fsm, c, tokens);
     else
     {
         fsm->current_state = STATE_ERROR;

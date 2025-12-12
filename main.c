@@ -6,7 +6,7 @@
 /*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 18:13:39 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/12/11 14:53:56 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/12/12 20:25:57 by kjroydev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@ int main(void)
 {
 	char    *input;
 	t_token *tokens;
-	int		i;
+	int	i;
 
-	tokens = NULL;
-	while (true)
+	i = 0;
+	while (i < 10)
 	{
+		tokens = NULL;
 		input = readline("minishell> ");
 		if (!input)
 			break;
@@ -33,6 +34,9 @@ int main(void)
 			printf("Token: '%s' Type: %d Quote: %d\n", tmp->content, tmp->type, tmp->quote);
 			tmp = tmp->next;
 		}
+		free(input);
+		free_tokens(&tokens);
+		tokens = NULL;
 		i++;
 	}
 	printf("exit\n");

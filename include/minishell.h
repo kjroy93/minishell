@@ -6,7 +6,7 @@
 /*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 09:56:36 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/12/11 21:06:09 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/12/12 18:34:20 by kjroydev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,15 @@ typedef enum e_state
  * 
  * - prev_state = previous state of FSM to control quotes and special status.
  * 
- * - i_token = inner index of the token (buffer control)
+ * - i_token = inner index of the token (buffer control).
  * 
- * - i_input = inner inxed of the input (buffer control)
+ * - i_input = inner inxed of the input (buffer control).
+ * 
+ * - i_len = lenght of user input.
  * 
  * - counter = number that represent another value of interest in the FSM.
+ * 
+ * - has_error = bool to control special error state in FSM.
  * 
  * - input = user entry allocated with readline function
  * 
@@ -62,10 +66,12 @@ typedef struct s_fsm
 	t_state			prev_state; /**< Previous state of FSM. */
 	size_t			i_token; /**< Inner index of buffer. */
 	size_t			i_input; /**< Inner state of user input. */
+	size_t			i_len; /**< Lenght of the user input. */
 	size_t			counter; /**< Aux counter of the FSM. */
-	bool			has_error;
+	size_t			token_capacity; /**< Int to represet initial buffer size */
+	bool			has_error; /**< Boolean to control error state. */
 	char			*input; /**< User input (readline). */
-	char			token[256]; /**< Buffer to construct tokens. */
+	char			*token; /**< Buffer to construct tokens. */
 }	t_fsm;
 
 /**
@@ -107,12 +113,12 @@ bool	state_error(t_fsm *fsm, char c, t_token **tokens);
 void	error_handler(t_fsm *fsm, const char *line);
 void	default_state(t_fsm *fsm);
 void	create_token(t_fsm *fsm, t_token **tokens, int quoted);
-void	reset_fsm(t_fsm *fsm);
 void	destroy_fsm(t_fsm **fsm);
 
 t_token	*init_token(t_fsm *fsm, int quoted);
-void	token_append_str(t_fsm *fsm, const char *str);
-void	token_append_char(t_fsm *fsm, const char c);
+void	token_append_str(t_fsm *fsm, const char *str, t_token **tokens);
+void	token_append_char(t_fsm *fsm, const char c, t_token **tokens);
+void	expand_token_buffer(t_fsm *fsm, t_token **tokens);
 void	token_add_back(t_token **tokens, t_token *new);
 void	free_tokens(t_token **tokens);
 
