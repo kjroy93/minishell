@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 15:17:32 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/12/12 18:31:38 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/12/17 18:11:15 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ bool	state_error(t_fsm *fsm, char c, t_token **tokens)
 
 	(void)c;
 	(void)tokens;
+	msg = "\0";
 	if (fsm->current_state == STATE_PIPE)
 		msg = "unexpected EOF while looking for extra command \n";
-	else if (fsm->current_state == STATE_DQUOTE ||
-			fsm->current_state == STATE_SQUOTE)
+	else if (fsm->current_state == STATE_DQUOTE
+		|| fsm->current_state == STATE_SQUOTE)
 		msg = "unexpected EOF while looking for a quote \n";
 	else if (fsm->current_state == STATE_REDIRECT)
 		msg = "unexpected EOF while looking for fd to redirect I/O \n";

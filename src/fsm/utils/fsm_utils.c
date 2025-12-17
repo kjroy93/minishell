@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fsm_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 14:42:04 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/12/12 20:29:29 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/12/17 17:43:48 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_fsm	*init_fsm(char *input)
 void	create_token(t_fsm *fsm, t_token **tokens, int quoted)
 {
 	t_token	*new;
-	
+
 	if (fsm->i_token == 0)
 		return ;
 	fsm->token[fsm->i_token] = '\0';

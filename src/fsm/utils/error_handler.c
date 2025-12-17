@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 21:04:05 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/12/12 20:01:36 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/12/17 17:41:08 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	expand_token_buffer(t_fsm *fsm, t_token **tokens)
 		destroy_fsm(&fsm);
 		free_tokens(tokens);
 		write(2, "minishell: memory allocation error\n", 35);
-        exit(1);
+		exit(1);
 	}
 	ft_memcpy(new_buffer, fsm->token, fsm->i_token);
 	free(fsm->token);

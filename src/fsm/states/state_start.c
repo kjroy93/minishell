@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   state_start.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 12:34:46 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/12/11 17:49:20 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/12/17 17:40:34 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_state next_state_from_start(char c)
+static t_state	next_state_from_start(char c)
 {
 	if (c == ' ' || c == '\t')
 		return (STATE_START);
@@ -30,8 +30,8 @@ static t_state next_state_from_start(char c)
 bool	state_start(t_fsm *fsm, char c, t_token **tokens)
 {
 	t_state	new_state;
-	(void)tokens;
 
+	(void)tokens;
 	new_state = next_state_from_start(c);
 	if (new_state == STATE_START)
 	{

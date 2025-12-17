@@ -3,30 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   fsm.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 14:48:43 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/12/12 19:36:15 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/12/17 18:08:09 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_state_handler g_handlers[] = {
-	state_start,
-	state_word,
-	state_squote,
-	state_dquote,
-	state_pipe,
-	state_redirect,
-	state_error,
-	state_end,
-};
-
 static void	fsm_dispatcher(t_fsm *fsm, t_token **tokens)
 {
-	char	c;
-	bool	consume;
+	char					c;
+	bool					consume;
+	static t_state_handler	g_handlers[] = {
+		state_start,
+		state_word,
+		state_squote,
+		state_dquote,
+		state_pipe,
+		state_redirect,
+		state_error,
+		state_end,
+	};
 
 	fsm->i_len = ft_strlen(fsm->input);
 	while (fsm->i_input <= fsm->i_len)

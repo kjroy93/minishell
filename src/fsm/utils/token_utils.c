@@ -3,37 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 18:21:23 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/12/12 20:36:14 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/12/17 17:44:20 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token *init_token(t_fsm *fsm, int quoted)
+t_token	*init_token(t_fsm *fsm, int quoted)
 {
-    t_token *token;
+	t_token	*token;
 
-    token = malloc(sizeof(t_token));
-    if (!token)
-        return NULL;
-    token->next = NULL;
-    token->type = fsm->current_state;
-    token->quote = quoted;
-    if (fsm->token[0] != '\0' && fsm->token[0] != '\n')
-    {
-        token->content = ft_strdup(fsm->token);
-        if (!token->content)
-        {
-            free(token);
-            return (NULL);
-        }
-    }
-    else
-        token->content = NULL;
-    return (token);
+	token = malloc(sizeof(t_token));
+	if (!token)
+		return (NULL);
+	token->next = NULL;
+	token->type = fsm->current_state;
+	token->quote = quoted;
+	if (fsm->token[0] != '\0' && fsm->token[0] != '\n')
+	{
+		token->content = ft_strdup(fsm->token);
+		if (!token->content)
+		{
+			free(token);
+			return (NULL);
+		}
+	}
+	else
+		token->content = NULL;
+	return (token);
 }
 
 void	token_add_back(t_token **tokens, t_token *new)
@@ -74,8 +74,8 @@ void	token_append_char(t_fsm *fsm, const char c, t_token **tokens)
 {
 	if (fsm->i_token + 1 >= fsm->token_capacity)
 		expand_token_buffer(fsm, tokens);
-	if (c == '\n' && (fsm->prev_state == STATE_DQUOTE ||
-			fsm->prev_state == STATE_SQUOTE))
+	if (c == '\n' && (fsm->prev_state == STATE_DQUOTE
+			|| fsm->prev_state == STATE_SQUOTE))
 		return ;
 	fsm->token[fsm->i_token++] = c;
 	fsm->token[fsm->i_token] = '\0';

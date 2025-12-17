@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroydev <kjroydev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 15:23:22 by kjroydev          #+#    #+#             */
-/*   Updated: 2025/12/12 19:57:08 by kjroydev         ###   ########.fr       */
+/*   Updated: 2025/12/17 17:43:18 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ bool	state_pipe(t_fsm *fsm, char c, t_token **tokens)
 	token_append_char(fsm, c, tokens);
 	create_token(fsm, tokens, 0);
 	tmp = fsm->i_input + 1;
-	while (fsm->input[tmp] == ' ' || fsm->input[tmp] == '\t' || fsm->input[tmp] == '\n')
+	while (fsm->input[tmp] == ' ' || fsm->input[tmp] == '\t'
+		|| fsm->input[tmp] == '\n')
 		tmp++;
 	if (fsm->input[tmp] == '\0')
 	{
